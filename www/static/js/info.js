@@ -32,5 +32,7 @@ function get_page(){
                 document.getElementById("link").className= "form-control grey_color";
                 document.getElementById("loader").className = "sk-cube-grid hidden";
               }
+
+              loadAnalytics();
               
 }
