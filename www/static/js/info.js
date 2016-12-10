@@ -1,4 +1,19 @@
-
+function loadAnalytics() {
+    var par = linkinput.value.split("/");
+    var id = par[par.length - 1];
+    var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/analytics?id='+id, true);
+        xhr.send();
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState != 4) return;
+          if (xhr.status == 200) {
+            document.getElementById("information").className = "container";
+            document.getElementById("loader").className = "sk-cube-grid hidden";
+            // xhr.responseText - тут ответ
+          }
+        }
+        document.getElementById("loader").className = "sk-cube-grid visible";
+}
 function get_page(){
               if(document.getElementById("link").value != ""){
                 document.getElementById("loader").className = "sk-cube-grid visible";
@@ -9,7 +24,7 @@ function get_page(){
                 var id = par[par.length - 1];
                 document.getElementById("link").className= "form-control";
                 
-                curl = "https://api.vk.com/method/groups.getById?group_id=" + id + "&fields=photo_100,description";
+                var curl = "https://api.vk.com/method/groups.getById?group_id=" + id + "&fields=photo_100,description";
 
                     var pageRequest = new XMLHttpRequest(curl);
                     pageRequest.open("GET", curl, false);
@@ -24,15 +39,10 @@ function get_page(){
                     document.getElementById("loader").className = "sk-cube-grid hidden";
                     document.getElementById("ours").innerHTML = "Ваше сообщество";
                     document.getElementById("information").className = "container visible";
-                
-                
               }
               else{
                 document.getElementById("link").placeholder = "Пожалуйста, введите имя паблика!";
                 document.getElementById("link").className= "form-control grey_color";
                 document.getElementById("loader").className = "sk-cube-grid hidden";
               }
-
-              loadAnalytics();
-              
 }
