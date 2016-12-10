@@ -26,13 +26,31 @@
           <div class="input-group">
             <input type="text" class="form-control" id="link" placeholder="Ссылка на сообщество">
             <span class="input-group-btn">
-              <button class="btn btn-secondary" type="button">Погнали!</button>
+              <button class="btn btn-secondary" onclick="get_page()" type="button">Погнали!</button>
             </span>
           </div>
         </p>
       </div>
+     <h3  class='text-center'>Ваше сообщество</h3>
+     <div class="row">
+      <div class="col-md-4">
+        <p><abbr  title="Информация"><em>Фото, название и описание вашей группы</em></abbr></p>
+        <div id="image"></div>
+        <div id="name_of_public"></div>
+        <div  id="about"></div>
+      </div>
+      <div class="col-md-4">
+        <p><abbr  title="Топ-подписчиков"><em>Похожие группы</em></abbr></p>
+        
+      </div>
+      <div class="col-md-4">
+        <p><abbr  title="Information"><em>Подписчики</em></abbr></p>
+        
+      </div>
+    </div>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
       <script src="js/bootstrap.min.js"></script>
+      <script src="js/info.js"></script>
     </div>
   </body>
 </html>
