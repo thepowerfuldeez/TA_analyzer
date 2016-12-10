@@ -1,9 +1,10 @@
-from flask import Flask
-from flask import render_template
+from flask import *
 app = Flask(__name__)
 
 @app.route('/', methods=['POST', 'GET'])
 def root():
-    return render_template('index.html')
+    resp = make_response(render_template('index.html'))
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
 app.run(host='0.0.0.0', debug=True)
