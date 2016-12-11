@@ -1,4 +1,5 @@
-
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
 function drawChart(data_list, title_of_chart, id) {
 
         var data_to_show = google.visualization.arrayToDataTable(data_list);
