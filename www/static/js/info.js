@@ -31,12 +31,12 @@ var picData = [
         ['Картинки', data['content']['photo']]
 ];
 var textData = [
-        ['Картинки', '%'],
-        ['Картики', data['content']['text']]
+        ['Текст', '%'],
+        ['Текст', data['content']['text']]
 ];
 var musicData = [
-        ['Картинки', '%'],
-        ['Картики', data['content']['music']]
+        ['Музыка', '%'],
+        ['Музыка', data['content']['music']]
 ];
     
     drawSexChart(sexData, 'm_and_m');
