@@ -1,3 +1,5 @@
+google.charts.load('current', {'packages':['corechart']});
+
 function loadAnalytics() {
     var par = linkinput.value.split("/");
     var id = par[par.length - 1];
@@ -6,21 +8,7 @@ function loadAnalytics() {
         document.getElementById("loader").className = "sk-cube-grid hidden";
         renderAnalytics(JSON.parse(result));
     }});
-    document.getElementById("loader").className = "sk-cube-grid visible";
-    var table = [
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
-        ];
-    var fher = [
-     ['men', 30],
-     ['women', 40]
-     ];
-    drawChart(table, 'Hello!', 'piechart'); 
-    drawChart(fher, 'Hell!', 'follows');      
+    document.getElementById("loader").className = "sk-cube-grid visible";     
 }
 
 function renderAnalytics(data){
@@ -28,7 +16,16 @@ function renderAnalytics(data){
     document.getElementById('name_of_public').innerHTML="<h3>" + data['response'][0]['name'] + "</h3>";
     document.getElementById('about').innerHTML= data['response'][0]['description'];
     document.getElementById("ours").innerHTML = "Ваше сообщество";
+
+    var sexData = [
+     ['Пол', '%'],
+     ['Женщины', data['sexes']['women']],
+     ['Мужчины', data['sexes']['men']],
+     ['Не указано', data['sexes']['undefined']]
+    ];
+    drawSexChart(sexData, "m_and_m")
 }
+
 document.getElementById("linkinput")
     .addEventListener("keyup", function(event) {
     event.preventDefault();
@@ -36,3 +33,12 @@ document.getElementById("linkinput")
         document.getElementById("go").click();
     }
 });
+
+function drawSexChart(data, elementId) {
+    var data_to_show = google.visualization.arrayToDataTable(data);
+    var options = {
+      title: "Соотношение полов"
+    };
+    var chart = new google.visualization.PieChart(document.getElementById(elementId));
+    chart.draw(data_to_show, options);
+}
