@@ -29,23 +29,24 @@ function renderAnalytics(data){
 var picData = [
         ['Картинки', '%'],
         ['Картинки', data['content']['photo']],
-        ['Без картинок', 1-parseInt(data['content']['photo'])]
+        ['Без картинок', 1-parseFloat(data['content']['photo'])]
 ];
 var textData = [
         ['Текст', '%'],
         ['Текст', data['content']['text']]
-        //['Без текста', 1-parseInt(data['content']['text'])]
+        ['Без текста', 1-parseFloat(data['content']['text'])]
 ];
 var musicData = [
         ['Музыка', '%'],
         ['Музыка', data['content']['music']],
-        ['Без музыки', 1-parseInt(data['content']['music'])]
+        ['Без музыки', 1-parseFloat(data['content']['music'])]
 ];
     
     drawSexChart(sexData, 'm_and_m');
     drawPicChart(picData, 'pictures');
     drawTextChart(textData, 'text');
     drawMusicChart(musicData, 'music');
+    setTop(data);
 }
 
 document.getElementById("linkinput")
@@ -95,3 +96,10 @@ function drawMusicChart(data, elementId) {
     chart.draw(data_to_show, options);
 }
 
+function setTop(data){
+    document.getElementById('p1').innerHTML = "<a>https://vk.com/public" + parseInt(data['response']['top5'][0]).toString() + "</a>";
+    document.getElementById('p2').innerHTML = "<a>https://vk.com/public" + parseInt(data['response']['top5'][1]).toString() + "</a>";
+    document.getElementById('p3').innerHTML = "<a>https://vk.com/public" + parseInt(data['response']['top5'][2]).toString() + "</a>";
+    document.getElementById('p4').innerHTML = "<a>https://vk.com/public" + parseInt(data['response']['top5'][3]).toString() + "</a>";
+    document.getElementById('p5').innerHTML = "<a>https://vk.com/public" + parseInt(data['response']['top5'][4]).toString() + "</a>";
+}
