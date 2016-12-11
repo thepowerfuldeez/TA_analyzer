@@ -15,9 +15,12 @@ function loadAnalytics() {
           ['Watch TV', 2],
           ['Sleep',    7]
         ];
-    var 
+    var fher = [
+     ['men', 30],
+     ['women', 40]
+     ];
     drawChart(table, 'Hello!', 'piechart'); 
-    drawChart()       
+    drawChart(fher, 'Hell!', 'follows');      
 }
 
 function renderAnalytics(data){
