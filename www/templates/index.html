@@ -44,48 +44,41 @@
         <div class="sk-cube sk-cube7"></div>
         <div class="sk-cube sk-cube8"></div>
         <div class="sk-cube sk-cube9"></div>
-      </div>
-     
-     <div class="container hidden" id="information">
-       <div class="row col-md-12">
-        <div class="col-md-4">
-          <p><abbr  title="Информация"><em>Фото, название и описание вашей группы</em></abbr></p>
+
+      </div>    
+    </div>
+    <div class="container hidden" id="information">
+    <div class="row">
+            <div class="col-xs-6 col-lg-4">
+              <p><abbr  title="Информация"><em>Фото и название вашей группы</em></abbr></p>
           <div id="image"></div>
           <div id="name_of_public"></div>
-        </div>
-        <div class="row">
-        <h3 class="text-center">Аудитория</h4>
-        <div class="col-md-7 text-center">
-          <div id="m_and_m"></div>
-          <div class="col-md-7 text-center">
-          <div id="follows">
-            <h4 class="text-center">Похожие сообщества</h4>
-            <table class="table table-striped">
-              <tr>
-                <td>МДК</td>
-              </tr>
-              <tr>
-                <td>АКБ</td>
-              </tr>
-              <tr>
-                <td>ИБД</td>
-              </tr>
-              <tr>
-                <td>АПП</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        </div>
-        
-        </div>
-
-    </div>
-    </div>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-      <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-      <script src="{{ url_for('static', filename='js/info.js') }}"></script>
-      </div>
-    </div>
+            </div><!--/.col-xs-6.col-lg-4-->
+            <div class="col-xs-6 col-lg-4">
+              <p><abbr  title="Мужчины/женщины"><em>Мужчины/женщины</em></abbr></p>
+              <div id="m_and_m"></div>
+            </div><!--/.col-xs-6.col-lg-4-->
+            <div class="col-xs-6 col-lg-4">
+              <p><abbr  title="Подписчики"><em>Топ пабликов среди подписчиков</em></abbr></p>
+              <div id="follows"></div>
+          <div id="follows"></div>
+            </div><!--/.col-xs-6.col-lg-4-->
+            <div class="col-xs-6 col-lg-4">
+              <p><abbr  title="Доля картинок"><em>С картинками</em></abbr></p>
+              <div id="pictures"></div>
+            </div><!--/.col-xs-6.col-lg-4-->
+            <div class="col-xs-6 col-lg-4">
+              <p><abbr  title="Доля текста"><em>С текстом</em></abbr></p>
+              <div id="text"></div>
+            </div><!--/.col-xs-6.col-lg-4-->
+            <div class="col-xs-6 col-lg-4">
+              <p><abbr  title="Доля музыки"><em>С музыкой</em></abbr></p>
+              <div id="music"></div>
+            </div><!--/.col-xs-6.col-lg-4-->
+          </div><!--/row-->
+          </div><!--/container-->
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+          <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+          <script src="{{ url_for('static', filename='js/info.js') }}"></script>
   </body>
 </html>

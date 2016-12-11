@@ -13,7 +13,6 @@ def root():
 def analytics():
 	_id = request.args['id']
 	r = requests.get("https://api.vk.com/method/groups.getById?group_id=" + _id + "&fields=photo_100,description")
-
 	resp = r.text[:len(r.text)-1] + \
 	', "sexes": {"men": 30, "women": 30, "undefined": 10}' + \
 	', "city": "Либерти-Сити"' + \
