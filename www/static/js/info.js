@@ -15,13 +15,34 @@ function renderAnalytics(data){
     document.getElementById('image').innerHTML ="<img class = 'rounded' src='" + data['response'][0]['photo_100']+ "' />";
     document.getElementById('name_of_public').innerHTML="<h3>" + data['response'][0]['name'] + "</h3>";
 
+     document.getElementById('ins').innerHTML="<h4>" + data['university'] + "</h4>";
+      document.getElementById('school').innerHTML="<h4>" + data['school'] + "</h4>";
+       document.getElementById('city').innerHTML="<h4>" + data['city'] + "</h4>";
+        document.getElementById('country').innerHTML="<h4>" + data['country'] + "</h4>";
+
     var sexData = [
-     ['Пол', '%'],
-     ['Женщины', data['sexes']['women']],
-     ['Мужчины', data['sexes']['men']],
-     ['Не указано', data['sexes']['undefined']]
-    ];
-    drawSexChart(sexData, "m_and_m")
+        ['Пол', '%'],
+        ['Женщины', data['sexes']['women']],
+        ['Мужчины', data['sexes']['men']],
+        ['Не указано', data['sexes']['undefined']]
+];
+var picData = [
+        ['Картинки', '%'],
+        ['Картинки', data['content']['photo']]
+];
+var textData = [
+        ['Текст', '%'],
+        ['Текст', data['content']['text']]
+];
+var musicData = [
+        ['Музыка', '%'],
+        ['Музыка', data['content']['music']]
+];
+    
+    drawSexChart(sexData, 'm_and_m');
+    drawPicChart(picData, 'pictures');
+    drawTextChart(textData, 'text');
+    drawMusicChart(musicData, 'music');
 }
 
 document.getElementById("linkinput")
@@ -41,30 +62,33 @@ function drawSexChart(data, elementId) {
     var chart = new google.visualization.PieChart(document.getElementById(elementId));
     chart.draw(data_to_show, options);
 }
-function drawChart(data, elementId) {
+function drawPicChart(data, elementId) {
     var data_to_show = google.visualization.arrayToDataTable(data);
     var options = {
-      title: "Соотношение полов"
+      title: "Картинки в постах"
   };
 
     var chart = new google.visualization.PieChart(document.getElementById(elementId));
     chart.draw(data_to_show, options);
 }
-function drawSexChart(data, elementId) {
+
+function drawTextChart(data, elementId) {
     var data_to_show = google.visualization.arrayToDataTable(data);
     var options = {
-      title: "Соотношение полов"
+      title: "Текст в постах"
   };
 
     var chart = new google.visualization.PieChart(document.getElementById(elementId));
     chart.draw(data_to_show, options);
 }
-function drawSexChart(data, elementId) {
+
+function drawMusicChart(data, elementId) {
     var data_to_show = google.visualization.arrayToDataTable(data);
     var options = {
-      title: "Соотношение полов"
+      title: "Музыка в постах"
   };
 
     var chart = new google.visualization.PieChart(document.getElementById(elementId));
     chart.draw(data_to_show, options);
 }
+

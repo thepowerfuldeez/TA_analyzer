@@ -167,7 +167,8 @@ def analytics():
 	', "school": "МОУ СОШ 13"' + \
 	', "university": "МАМИ"' + \
 	', "agerange": "14-17"' + \
-	', "content": {"music": 50, "photo": 80, "text": 20, "video": 7}' + \
+	', "content": {"music": 50, "photo": 80, "text": 20}' + \
+	', "country": "Russia"' + \
 	'}'
 
 	print(resp)
