@@ -9,7 +9,7 @@ def root():
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
-@app.route('/analytics', methods=['POST'])
+@app.route('/analytics', methods=['POST', 'GET'])
 def analytics():
 	_id = request.args['id']
 	r = requests.get("https://api.vk.com/method/groups.getById?group_id=" + _id + "&fields=photo_100,description")
