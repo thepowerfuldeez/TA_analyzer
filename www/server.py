@@ -15,14 +15,7 @@ def analytics():
 	r = requests.get("https://api.vk.com/method/groups.getById?group_id=" + _id + "&fields=photo_100,description")
 	
 	# хардкод
-	resp = r.text[:len(r.text)-1] + \
-	', "sexes": {"men": 30, "women": 30, "undefined": 10}' + \
-	', "city": "Либерти-Сити"' + \
-	', "school": "МОУ СОШ 13"' + \
-	', "university": "МАМИ"' + \
-	', "agerange": "14-17"' + \
-	', "content": {"music": 50, "photo": 80, "text": 20, "video": 7}'
-	'}'
+	resp = r.text[:len(r.text)-1] + ', "sexes": {"men": 30, "women": 30, "undefined": 10} }'
 	print(resp)
 	return resp
 

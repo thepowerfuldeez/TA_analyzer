@@ -35,8 +35,36 @@ document.getElementById("linkinput")
 function drawSexChart(data, elementId) {
     var data_to_show = google.visualization.arrayToDataTable(data);
     var options = {
-      title: "Соотношение полов",
-    };
+      title: "Соотношение полов"
+  };
+
+    var chart = new google.visualization.PieChart(document.getElementById(elementId));
+    chart.draw(data_to_show, options);
+}
+function drawChart(data, elementId) {
+    var data_to_show = google.visualization.arrayToDataTable(data);
+    var options = {
+      title: "Соотношение полов"
+  };
+
+    var chart = new google.visualization.PieChart(document.getElementById(elementId));
+    chart.draw(data_to_show, options);
+}
+function drawSexChart(data, elementId) {
+    var data_to_show = google.visualization.arrayToDataTable(data);
+    var options = {
+      title: "Соотношение полов"
+  };
+
+    var chart = new google.visualization.PieChart(document.getElementById(elementId));
+    chart.draw(data_to_show, options);
+}
+function drawSexChart(data, elementId) {
+    var data_to_show = google.visualization.arrayToDataTable(data);
+    var options = {
+      title: "Соотношение полов"
+  };
+
     var chart = new google.visualization.PieChart(document.getElementById(elementId));
     chart.draw(data_to_show, options);
 }
