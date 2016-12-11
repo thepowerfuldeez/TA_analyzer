@@ -22,6 +22,7 @@
       </div>
     </nav>
     <div class="container main">
+    <div class="row row-offcanvas row-offcanvas-right">
       <div class="jumbotron">
         <h2>Продвинутая аналитика вашего сообщества</h2>
         <p>
@@ -46,7 +47,6 @@
       </div>
      
      <div class="container hidden" id="information">
-       <h3  id="ours" class='text-center'>Ваше сообщество</h3>
        <div class="row col-md-12">
         <div class="col-md-4">
           <p><abbr  title="Информация"><em>Фото, название и описание вашей группы</em></abbr></p>
@@ -54,16 +54,30 @@
           <div id="name_of_public"></div>
         </div>
         <div class="row">
-        <h4 class="text-center">Аудитория</h4>
-        <div class="col-md-4 text-center">
-          <p><abbr  title="Мужчины/женщины"><em>Мужчины/женщины</em></abbr></p>
+        <h3 class="text-center">Аудитория</h4>
+        <div class="col-md-7 text-center">
           <div id="m_and_m"></div>
+          <div class="col-md-7 text-center">
+          <div id="follows">
+            <h4 class="text-center">Похожие сообщества</h4>
+            <table class="table table-striped">
+              <tr>
+                <td>МДК</td>
+              </tr>
+              <tr>
+                <td>АКБ</td>
+              </tr>
+              <tr>
+                <td>ИБД</td>
+              </tr>
+              <tr>
+                <td>АПП</td>
+              </tr>
+            </table>
+          </div>
         </div>
-
-        <div class="col-md-4 text-center">
-          <p><abbr  title="Подписчики"><em>Топ пабликов среди подписчиков</em></abbr></p>
-          <div id="follows"></div>
         </div>
+        
         </div>
 
     </div>
@@ -71,6 +85,7 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
       <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
       <script src="{{ url_for('static', filename='js/info.js') }}"></script>
+      </div>
     </div>
   </body>
 </html>

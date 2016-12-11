@@ -14,7 +14,6 @@ function loadAnalytics() {
 function renderAnalytics(data){
     document.getElementById('image').innerHTML ="<img class = 'rounded' src='" + data['response'][0]['photo_100']+ "' />";
     document.getElementById('name_of_public').innerHTML="<h3>" + data['response'][0]['name'] + "</h3>";
-    document.getElementById("ours").innerHTML = "Ваше сообщество";
 
     var sexData = [
      ['Пол', '%'],
@@ -36,7 +35,7 @@ document.getElementById("linkinput")
 function drawSexChart(data, elementId) {
     var data_to_show = google.visualization.arrayToDataTable(data);
     var options = {
-      title: "Соотношение полов"
+      title: "Соотношение полов",
     };
     var chart = new google.visualization.PieChart(document.getElementById(elementId));
     chart.draw(data_to_show, options);
