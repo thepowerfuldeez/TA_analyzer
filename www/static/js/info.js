@@ -6,7 +6,18 @@ function loadAnalytics() {
         document.getElementById("loader").className = "sk-cube-grid hidden";
         renderAnalytics(JSON.parse(result));
     }});
-    document.getElementById("loader").className = "sk-cube-grid visible";        
+    document.getElementById("loader").className = "sk-cube-grid visible";
+    var table = [
+          ['Task', 'Hours per Day'],
+          ['Work',     11],
+          ['Eat',      2],
+          ['Commute',  2],
+          ['Watch TV', 2],
+          ['Sleep',    7]
+        ];
+    var 
+    drawChart(table, 'Hello!', 'piechart'); 
+    drawChart()       
 }
 
 function renderAnalytics(data){
