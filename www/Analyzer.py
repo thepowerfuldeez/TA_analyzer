@@ -1,52 +1,61 @@
 import vk_api
 import pickle
 from sklearn.metrics.pairwise import cosine_similarity
-
-
+ 
+ 
 class Analyzer:
-    
-    def __init__(self, token="4ee251bf489b9d88106f08b36239eb0ab39bed07ca3fb9adacf62346cb2981eed59a26f4c29a18123f053"):
-        vk_session = vk_api.VkApi(token)
-        vk_session.authorization()
-        cached_ids = pickle.load(open("cache.p", "rb"))
-        vector_cache = pickle.load(open("vector_cache.p", "rb"))
-    
+     
+    def __init__(self, token="8e57ea0d696bb77a99aa87c3076a19941a630bece5fb14d50073fa0d1c9d0d0b9abe7e0474628702089f2"):
+        self.vk_session = vk_api.VkApi(token=token)
+        self.vk_session.authorization()
+        self.cached_ids = pickle.load(open("cache.p", "rb"))
+        self.vector_cache = pickle.load(open("vector_cache.p", "rb"))
+     
     def to_cache(self, input_):
         global cached_ids
-
-        shortname = group_link[group_link.rfind("/")+1:]
+ 
+        shortname = input_[input_.rfind("/")+1:]
         if "public" in shortname:
             shortname = shortname[6:]
-        print(group_link)
-
-        r = vk_session.method("groups.getById", {"group_ids": shortname})
+        print(input_)
+ 
+        r = self.vk_session.method("groups.getById", {"group_ids": shortname})
         group_id = r[0]["id"]
-
+ 
         if group_id not in self.cached_ids.keys():
-
+ 
             """Все сообщества подписчиков сообщества"""
-            users = vk_api.VkTools(vk_session).get_all("groups.getMembers", 100, {'group_id':group_id})['items']
+            users = vk_api.VkTools(self.vk_session).get_all("groups.getMembers", 100, {'group_id':group_id})['items']
             k = int(len(users) / 1000)
             if k:
                 users = users[::k]
-
+ 
             data_for_clustering = []
             users_publicpages = []
-            with vk_api.VkRequestsPool(vk_session) as pool:
-
+            with vk_api.VkRequestsPool(self.vk_session) as pool:
+ 
                 for i in range(0, len(users), 1000):
                     batch = users[i:i+1000]
                     data_for_clustering.append(pool.method('users.get', {
                             "user_ids": batch,
                             "fields": "sex,age,education,universities,schools,interests,music,movies,bdate,city,country"
                         }))
-
+ 
                     for user_id in batch[:5]:
                         users_publicpages.append(pool.method('users.getSubscriptions', {
                                     "user_id": user_id
+ 
                                 }))
-
-            data_for_clustering = [x for x in [x.result for x in data_for_clustering]]
+            u = []
+            try:
+                for x in data_for_clustering:
+                    try:
+                        u.append(x.result)
+                    except:
+                        pass
+            except:
+                pass
+            new_data_for_clustering = [x for x in u]
             t = []
             for user in users_publicpages:
                 try:
@@ -54,20 +63,20 @@ class Analyzer:
                 except:
                     pass
             users_publicpages = t
-
-            wall50 = vk_session.method("wall.get", {"owner_id": -group_id, "filter": "owner", "count": 100})['items'][::2]
-
-            result = data_for_clustering, users_publicpages, wall50
+ 
+            wall50 = self.vk_session.method("wall.get", {"owner_id": -group_id, "filter": "owner", "count": 100})['items'][::2]
+ 
+            result = new_data_for_clustering, users_publicpages, wall50
             self.cached_ids[group_id] = result
             pickle.dump(self.cached_ids, open("cache.p", "wb"))
             return self.from_cache(group_id)
         else:
             return self.from_cache(group_id)
-    
-    
+     
+     
     def from_cache(self, gid):
         global vector_cache
-        
+         
         x_0 = []
         try:
             for i in range(1000):
@@ -108,7 +117,7 @@ class Analyzer:
                     z_0.append([has_text, has_photo, has_audio])
             except IndexError as e:
                 print(e)
-
+ 
             t_sex = [z[0] for z in x_0]
             f1 = t_sex.count(2) / len(t_sex)
             f2 = t_sex.count(1) / len(t_sex)
@@ -132,18 +141,19 @@ class Analyzer:
             ages = [z[4] for z in x_0 if z[4]]
             f14 = np.median(ages)
             x_1 = [f1, f2, f3, f4, f5, *f6_10, f11, f12, f13, f14]
-            
+             
             result = np.array(x_1, dtype="float32")
             self.vector_cache[gid] = result
             pickle.dump(self.vector_cache, open("vector_cache.p", "wb"))
             return result
         except IndexError as e:
             print(e)
-            
+             
     def get_info(self, input_):
         vector = self.to_cache(input_)
+        print(1)
         similarities = []
-        for gid, other_vector in vector_cache.items():
+        print(2)
+        for gid, other_vector in self.vector_cache.items():
             similarities.append([gid, cosine_similarity(vector, other_vector)[0]])
-        return vector, sorted(similarities, reverse=True, key=lambda x: x[1])[:3]
-        
+        return vector, sorted(similarities, reverse=True, key=lambda x: x[1])[1:4]
