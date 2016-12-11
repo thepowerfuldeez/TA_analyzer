@@ -2,9 +2,9 @@ from flask import *
 import requests
 import vk_api
 import pickle
+import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from collections import Counter
- 
  
 token="4ee251bf489b9d88106f08b36239eb0ab39bed07ca3fb9adacf62346cb2981eed59a26f4c29a18123f053"
 vk_session = vk_api.VkApi(token=token)
@@ -115,8 +115,7 @@ def from_cache(gid):
         f3 = Counter([z[1] for z in x_0 if z[1]]).most_common(1)[0][0]
         f4 = Counter([z[2] for z in x_0 if z[2]]).most_common(1)[0][0]
         f5 = Counter([z[3] for z in x_0 if z[3]]).most_common(1)[0][0]
-#         f6_10 = [t[0] for t in Counter([item for sublist in cached_ids[gid][1] for item in sublist]).most_common(5)]
-        f6_10 = [0, 0, 0, 0, 0]
+        f6_10 = [t[0] for t in Counter([item for sublist in cached_ids[gid][1] for item in sublist]).most_common(5)]
         try:
             f11 = sum([z[0] for z in z_0]) / len(z_0)
         except:
@@ -135,11 +134,11 @@ def from_cache(gid):
  
         result = np.array(x_1, dtype="float32")
         vector_cache[gid] = result
-        pickle.dump(vector_cache, open("www/vector_cache.p", "wb"))
+        pickle.dump(vector_cache, open("vector_cache.p", "wb"))
         return result
     except IndexError as e:
         print(e)
- 
+
 def get_info(input_):
     vector = to_cache(input_)
     similarities = []
@@ -157,21 +156,34 @@ def root():
 
 @app.route('/analytics', methods=['POST', 'GET'])
 def analytics():
-	_id = request.args['id']
-	r = requests.get("https://api.vk.com/method/groups.getById?group_id=" + _id + "&fields=photo_100,description")
-	info = get_info(_id)
-	print(info[0])
-	resp = r.text[:len(r.text)-1] + \
-	', "sexes": {"men": 30, "women": 30, "undefined": 10}' + \
-	', "city": "Либерти-Сити"' + \
+    _id = request.args['id']
+    r = requests.get("https://api.vk.com/method/groups.getById?group_id=" + _id + "&fields=photo_100,description")
+    info = get_info(_id)
+    print(info[0])
+
+#    res = {'sexes': 
+#           {'men': str(info[0][0]*100), 'women': str(info[0][1]*100), 'undefined': str(100 - info[0][1]*100 - info[0][0]*100)},
+#           'city' : "город по ид не реализовано", 'university': 'вуз по ид не реализовано', 'school': 'школа по ид не #реализовано('+str(info[0][3])+')', 'averange': str(int(info[0][13])), 'content': {'music': str(info[0][10]*100), 'photo': #str(info[0][11]*100), 'text': str(info[0][12]*100), 'country' : 'Russia'}}
+#                                                                                                                                  
+#    resp = r.text[:len(r.text)-1] + ', ' + repr(res)
+    
+    
+    
+    resp = r.text[:len(r.text)-1] + \
+	', "sexes": {"men": '+str(info[0][0]*100)+', "women": '+str(info[0][1]*100)+', "undefined": '+str(100 - info[0][1]*100 - info[0][0]*100)+'}' + \
+	', "city": "Moscow"' + \
 	', "school": "МОУ СОШ 13"' + \
 	', "university": "МАМИ"' + \
-	', "agerange": "14-17"' + \
-	', "content": {"music": 50, "photo": 80, "text": 20}' + \
+	', "agerange": '+str(int(info[0][13]))+'' + \
+	', "content": {"music": '+str(info[0][12])+', "photo": '+str(info[0][11])+', "text": '+str(info[0][10])+'}' + \
+    ', "top5": '+str([info[0][5], info[0][6], info[0][7], info[0][8], info[0][9]]) +'' + \
 	', "country": "Russia"' + \
 	'}'
-
-	print(resp)
-	return resp
+    
+    
+    
+    
+    print(resp)
+    return resp
 
 app.run(host='0.0.0.0', debug=True)

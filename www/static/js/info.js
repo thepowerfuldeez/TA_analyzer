@@ -28,15 +28,18 @@ function renderAnalytics(data){
 ];
 var picData = [
         ['Картинки', '%'],
-        ['Картинки', data['content']['photo']]
+        ['Картинки', data['content']['photo']],
+        ['Без картинок', 1-parseInt(data['content']['photo'])]
 ];
 var textData = [
         ['Текст', '%'],
         ['Текст', data['content']['text']]
+        //['Без текста', 1-parseInt(data['content']['text'])]
 ];
 var musicData = [
         ['Музыка', '%'],
-        ['Музыка', data['content']['music']]
+        ['Музыка', data['content']['music']],
+        ['Без музыки', 1-parseInt(data['content']['music'])]
 ];
     
     drawSexChart(sexData, 'm_and_m');
