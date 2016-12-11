@@ -44,9 +44,18 @@ class Analyzer:
                     for user_id in batch[:5]:
                         users_publicpages.append(pool.method('users.getSubscriptions', {
                                     "user_id": user_id
-                                }))
 
-            data_for_clustering = [x for x in [x.result for x in data_for_clustering]]
+                                }))
+            u = []
+            try:
+                for x in data_for_clustering:
+                    try:
+                        u.append(x.result)
+                    except:
+                        pass
+            except:
+                pass
+            new_data_for_clustering = [x for x in u]
             t = []
             for user in users_publicpages:
                 try:
@@ -57,7 +66,7 @@ class Analyzer:
 
             wall50 = vk_session.method("wall.get", {"owner_id": -group_id, "filter": "owner", "count": 100})['items'][::2]
 
-            result = data_for_clustering, users_publicpages, wall50
+            result = new_data_for_clustering, users_publicpages, wall50
             self.cached_ids[group_id] = result
             pickle.dump(self.cached_ids, open("cache.p", "wb"))
             return self.from_cache(group_id)
@@ -145,5 +154,5 @@ class Analyzer:
         similarities = []
         for gid, other_vector in vector_cache.items():
             similarities.append([gid, cosine_similarity(vector, other_vector)[0]])
-        return vector, sorted(similarities, reverse=True, key=lambda x: x[1])[:3]
+        return vector, sorted(similarities, reverse=True, key=lambda x: x[1])[1:4]
         
