@@ -15,3 +15,10 @@ function renderAnalytics(data){
     document.getElementById('about').innerHTML= data['response'][0]['description'];
     document.getElementById("ours").innerHTML = "Ваше сообщество";
 }
+document.getElementById("linkinput")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode == 13) {
+        document.getElementById("go").click();
+    }
+});
