@@ -1,5 +1,8 @@
 from flask import *
 import requests
+from Analyzer import Analyzer
+
+an = Analyzer()
 
 app = Flask(__name__)
 
@@ -13,6 +16,8 @@ def root():
 def analytics():
 	_id = request.args['id']
 	r = requests.get("https://api.vk.com/method/groups.getById?group_id=" + _id + "&fields=photo_100,description")
+	info = an.get_info(_id)
+	print(info[0])
 	resp = r.text[:len(r.text)-1] + \
 	', "sexes": {"men": 30, "women": 30, "undefined": 10}' + \
 	', "city": "Либерти-Сити"' + \
@@ -21,6 +26,7 @@ def analytics():
 	', "agerange": "14-17"' + \
 	', "content": {"music": 50, "photo": 80, "text": 20, "video": 7}' + \
 	'}'
+
 	print(resp)
 	return resp
 
